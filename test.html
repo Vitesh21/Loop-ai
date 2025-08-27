@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Environment Test</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const output = document.getElementById('output');
+            
+            function log(message) {
+                const p = document.createElement('p');
+                p.textContent = message;
+                output.appendChild(p);
+                console.log(message);
+            }
+            
+            log('Browser JavaScript is working!');
+            log(`User Agent: ${navigator.userAgent}`);
+            log(`Platform: ${navigator.platform}`);
+            log(`Cookies enabled: ${navigator.cookieEnabled}`);
+            
+            // Test basic functionality
+            try {
+                // Test localStorage
+                localStorage.setItem('test', 'storage works');
+                const testValue = localStorage.getItem('test');
+                log(`Local Storage: ${testValue === 'storage works' ? 'Working' : 'Not working'}`);
+                localStorage.removeItem('test');
+                
+                // Test fetch
+                fetch('https://httpbin.org/get')
+                    .then(response => response.json())
+                    .then(data => log('Fetch API: Working'))
+                    .catch(() => log('Fetch API: Not working'));
+                    
+            } catch (error) {
+                log(`Error: ${error.message}`);
+            }
+        });
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Environment Test</h1>
+    <div id="output">Testing environment... (check console for more details)</div>
+</body>
+</html>
